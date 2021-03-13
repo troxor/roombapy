@@ -2,7 +2,7 @@
 name = "amqtt"
 version = "0.10.0a1"
 description = "MQTT client/broker using Python asyncio"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -85,7 +85,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "docopt"
 version = "0.6.2"
 description = "Pythonic argument parser, that will make you smile"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -182,7 +182,7 @@ proxy = ["pysocks"]
 name = "passlib"
 version = "1.7.4"
 description = "comprehensive password hashing framework supporting over 30 schemes"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -286,7 +286,7 @@ testing = ["async-generator (>=1.3)", "coverage", "hypothesis (>=5.7.1)"]
 name = "pyyaml"
 version = "5.4.1"
 description = "YAML parser and emitter for Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
@@ -302,7 +302,7 @@ python-versions = "*"
 name = "six"
 version = "1.15.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -318,7 +318,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "transitions"
 version = "0.8.7"
 description = "A lightweight, object-oriented Python state machine implementation with many extensions."
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -349,7 +349,7 @@ python-versions = "*"
 name = "websockets"
 version = "8.1"
 description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6.1"
 
@@ -368,7 +368,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4.0"
-content-hash = "fc3ebf296562314848e86a2308f615ee2edba19ac73232c81d90a7d589081e78"
+content-hash = "d9601c9660b5b120948864b1d2dab0e110064de2e63717a618968ec29afc4947"
 
 [metadata.files]
 amqtt = [
