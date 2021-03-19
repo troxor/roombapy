@@ -354,17 +354,6 @@ class Roomba:
         """
         Roomba progresses through states (phases).
 
-        Current identified states are:
-        ""              : program started up, no state yet
-        "run"           : running on a Cleaning Mission
-        "hmUsrDock"     : returning to Dock
-        "hmMidMsn"      : need to recharge
-        "hmPostMsn"     : mission completed
-        "charge"        : chargeing
-        "stuck"         : Roomba is stuck
-        "stop"          : Stopped
-        "pause"         : paused
-
         Normal Sequence is "" -> charge -> run -> hmPostMsn -> charge
         Mid mission recharge is "" -> charge -> run -> hmMidMsn -> charge
                                    -> run -> hmPostMsn -> charge
@@ -464,7 +453,18 @@ class Roomba:
             self.current_state = ROOMBA_STATES["charge"]
 
         else:
-            self.current_state = ROOMBA_STATES[self.cleanMissionStatus_phase]
+            if self.cleanMissionStatus_phase not in ROOMBA_STATES:
+                self.log.error(
+                    "Can't find state %s in predefined Roomba states, "
+                    "please create a new issue: "
+                    "https://github.com/pschmitt/roombapy/issues/new",
+                    self.cleanMissionStatus_phase,
+                )
+                self.current_state = None
+            else:
+                self.current_state = ROOMBA_STATES[
+                    self.cleanMissionStatus_phase
+                ]
 
         if new_state is not None:
             self.current_state = ROOMBA_STATES[new_state]
