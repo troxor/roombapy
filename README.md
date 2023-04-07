@@ -3,7 +3,7 @@
 [![CI](https://github.com/pschmitt/roombapy/actions/workflows/ci.yaml/badge.svg)](https://github.com/pschmitt/roombapy/actions/workflows/ci.yaml)
 [![PyPI](https://img.shields.io/pypi/v/roombapy)](https://pypi.org/project/roombapy/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/roombapy)](https://pypi.org/project/roombapy/)
-[![PyPI - License](https://img.shields.io/pypi/l/roombapy)](https://pypi.org/project/roombapy/)
+[![PyPI - License](https://img.shields.io/pypi/l/roombapy)](./LICENSE)
 
 Unofficial iRobot Roomba python library (SDK).
 
