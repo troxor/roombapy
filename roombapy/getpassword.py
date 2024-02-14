@@ -1,8 +1,10 @@
 """The class helps you to get password for your Roomba."""
+
 import logging
 import socket
-import ssl
 import struct
+
+from roombapy.remote_client import generate_tls_context
 
 
 class RoombaPassword:
@@ -78,10 +80,5 @@ def _decode_password(data):
 def _get_socket():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.settimeout(10)
-    ssl_socket = ssl.wrap_socket(
-        server_socket,
-        ssl_version=ssl.PROTOCOL_TLS,
-        ciphers="DEFAULT@SECLEVEL=1",
-    )
-    ssl_socket.context.options |= 0x4  # set OP_LEGACY_SERVER_CONNECT
-    return ssl_socket
+    context = generate_tls_context()
+    return context.wrap_socket(server_socket)
