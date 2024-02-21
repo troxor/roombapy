@@ -19,7 +19,7 @@ pip install roombapy
 
 # Notes
 
-This library is only for firmware 2.x.x [Check your robot version!](http://homesupport.irobot.com/app/answers/detail/a_id/529) 
+This library is only for firmware 2.x.x [Check your robot version!](http://homesupport.irobot.com/app/answers/detail/a_id/529)
 
 Only local connections are supported.
 
@@ -32,7 +32,7 @@ $ roomba-password <ip>
 ```
 
 It will find your Roomba in local network, then follow the instructions in console to get password.
-If IP address not provided password will be request for auto discovered robot. 
+If IP address not provided password will be request for auto discovered robot.
 
 Also you can just ask Roomba for info:
 
@@ -44,4 +44,13 @@ To test connection with iRobot:
 
 ```shell
 $ roomba-connect <ip> <password>
+```
+
+## Development
+
+To improve your development experience, you can install pre-commit hooks via the following command.
+With every commit it will run a set of checks, making sure it meets the quality standards.
+
+```shell
+pre-commit install
 ```
