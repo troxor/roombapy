@@ -7,13 +7,15 @@ import struct
 
 from roombapy.remote_client import generate_tls_context
 
+PASSWORD_REQUEST = bytes.fromhex("f005efcc3b2900")
+UNSUPPORTED_MAGIC = bytes.fromhex("f005efcc3b2903")
+
 
 class RoombaPassword:
     """Main class to get a password."""
 
     roomba_ip: str
     roomba_port: int = 8883
-    message: bytes = bytes.fromhex("f005efcc3b2900")
     server_socket: socket.socket
     log: logging.Logger
 
@@ -32,7 +34,10 @@ class RoombaPassword:
 
     def get_password(self) -> str | None:
         """Get password for roomba."""
-        self._connect()
+        try:
+            self._connect()
+        except ConnectionRefusedError:
+            return None
         self._send_message()
         response = self._get_response()
         if response:
@@ -46,7 +51,7 @@ class RoombaPassword:
         )
 
     def _send_message(self) -> None:
-        self.server_socket.send(self.message)
+        self.server_socket.send(PASSWORD_REQUEST)
         self.log.debug("Message sent")
 
     def _get_response(self) -> bytes | None:
@@ -62,9 +67,14 @@ class RoombaPassword:
                 if len(response) == 0:
                     break
 
+                if response == UNSUPPORTED_MAGIC:
+                    # Password for this model can be obtained only from cloud
+                    break
+
                 raw_data += response
                 if len(raw_data) >= 2:
                     response_length = struct.unpack("B", raw_data[1:2])[0]
+            self.server_socket.shutdown(socket.SHUT_RDWR)
             self.server_socket.close()
         except socket.timeout:
             self.log.warning("Socket timeout")
@@ -82,6 +92,6 @@ def _decode_password(data: bytes) -> str:
 
 def _get_socket() -> socket.socket:
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.settimeout(10)
+    server_socket.settimeout(3)
     context = generate_tls_context()
     return context.wrap_socket(server_socket)
