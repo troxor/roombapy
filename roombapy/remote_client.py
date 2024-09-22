@@ -9,7 +9,7 @@ import paho.mqtt.client as mqtt
 
 from roombapy.const import MQTT_ERROR_MESSAGES, TransportErrorMessage
 
-MAX_CONNECTION_RETRIES = 3
+MAX_CONNECTION_RETRIES = 10
 
 ConnectionCallback = Callable[[TransportErrorMessage], None]
 
