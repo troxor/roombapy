@@ -45,8 +45,10 @@ class RoombaRemoteClient:
     password: str
     log: logging.Logger
     was_connected: bool = False
+    is_connected : bool = False
     on_connect: ConnectionCallback
     on_disconnect: ConnectionCallback
+    mqtt_client = None
 
     def __init__(
         self, address: str, blid: str, password: str, port: int = 8883
@@ -81,6 +83,9 @@ class RoombaRemoteClient:
 
     def connect(self) -> bool:
         """Connect to the Roomba."""
+        if self.is_connected:
+            self.log.info("Already connected to %s", self.address)
+            return True
         attempt = 1
         while attempt <= MAX_CONNECTION_RETRIES:
             self.log.info(
@@ -92,7 +97,7 @@ class RoombaRemoteClient:
             try:
                 self._open_mqtt_connection()
             except Exception:
-                self.log.exception("Can't connect to %s", self.address)
+                self.log.exception("Can't cornect to %s", self.address)
             else:
                 return True
             attempt += 1
@@ -155,6 +160,8 @@ class RoombaRemoteClient:
                 reason_code,
             )
             connection_error = "UNKNOWN_ERROR"
+        else:
+            self.is_connected = True
         if self.on_connect is not None:
             self.on_connect(connection_error)
 
@@ -175,5 +182,7 @@ class RoombaRemoteClient:
                 reason_code,
             )
             connection_error = "UNKNOWN_ERROR"
+        else:
+            self.is_connected = False
         if self.on_disconnect is not None:
             self.on_disconnect(connection_error)
